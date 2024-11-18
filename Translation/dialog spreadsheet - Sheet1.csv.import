@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bvw6iinuq4u42"
+
+[deps]
+
+files=["res://Translation/dialog spreadsheet - Sheet1.en.translation", "res://Translation/dialog spreadsheet - Sheet1.es.translation", "res://Translation/dialog spreadsheet - Sheet1.ja.translation"]
+
+source_file="res://Translation/dialog spreadsheet - Sheet1.csv"
+dest_files=["res://Translation/dialog spreadsheet - Sheet1.en.translation", "res://Translation/dialog spreadsheet - Sheet1.es.translation", "res://Translation/dialog spreadsheet - Sheet1.ja.translation"]
+
+[params]
+
+compress=true
+delimiter=0

@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://crmr0624qgqwc"]
+
+[ext_resource type="Script" path="res://Scenes/Stages/stage.gd" id="1_7h3vs"]
+[ext_resource type="Script" path="res://Resources/stage_flags.gd" id="2_la5ir"]
+[ext_resource type="PackedScene" uid="uid://dpn4fj6meys4s" path="res://Scenes/NPCS/dialog_npc.tscn" id="3_7i0nu"]
+
+[sub_resource type="Resource" id="Resource_8qscc"]
+script = ExtResource("2_la5ir")
+stage_flag_dict = {
+"SamiDialog1": false,
+"SamiDialog2": false
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d6n6j"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(0.825239, 0.838726, 0.823125, 1)
+ground_bottom_color = Color(0.300955, 0.354904, 0.292502, 1)
+ground_horizon_color = Color(0.825239, 0.838726, 0.823125, 1)
+
+[sub_resource type="Sky" id="Sky_m5wyr"]
+sky_material = SubResource("ProceduralSkyMaterial_d6n6j")
+
+[sub_resource type="Environment" id="Environment_8inx5"]
+background_mode = 1
+background_color = Color(0.694118, 0.470588, 0.415686, 1)
+background_energy_multiplier = 0.1
+sky = SubResource("Sky_m5wyr")
+ambient_light_color = Color(0.843137, 0.47451, 0.584314, 1)
+ambient_light_sky_contribution = 0.25
+tonemap_mode = 2
+glow_enabled = true
+glow_hdr_threshold = 1.24
+fog_mode = 1
+fog_light_color = Color(0.517647, 1, 0.607843, 1)
+fog_sun_scatter = 0.52
+fog_density = 1.0
+
+[node name="Stage" type="Node3D"]
+script = ExtResource("1_7h3vs")
+stage_flags_resource = SubResource("Resource_8qscc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8inx5")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Npcs" type="Node3D" parent="."]
+
+[node name="DialogNpc" parent="Npcs" instance=ExtResource("3_7i0nu")]
+
+[node name="Enviornment" type="Node3D" parent="."]
+
+[node name="Exits" type="Node3D" parent="."]

@@ -1,0 +1,277 @@
+[gd_scene load_steps=21 format=3 uid="uid://cla3c5klgrbto"]
+
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_d55rm"]
+[ext_resource type="PackedScene" uid="uid://ikhdvx3ksjb7" path="res://Scenes/Player/onion_sprite.tscn" id="2_kjar6"]
+[ext_resource type="Script" path="res://Scenes/Core/npc.gd" id="3_0cjtn"]
+[ext_resource type="Texture2D" uid="uid://lvarp0g1n2tw" path="res://Assets/Sprite/Test/TestSprite.png" id="3_dbh3n"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_40xlu"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(0.825239, 0.838726, 0.823125, 1)
+ground_bottom_color = Color(0.300955, 0.354904, 0.292502, 1)
+ground_horizon_color = Color(0.825239, 0.838726, 0.823125, 1)
+
+[sub_resource type="Sky" id="Sky_m5wyr"]
+sky_material = SubResource("ProceduralSkyMaterial_40xlu")
+
+[sub_resource type="Environment" id="Environment_o3iox"]
+background_mode = 2
+sky = SubResource("Sky_m5wyr")
+ambient_light_sky_contribution = 0.16
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.517647, 1, 0.607843, 1)
+fog_sun_scatter = 0.52
+fog_density = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sm2ak"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.117647)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fpy2r"]
+material = SubResource("StandardMaterial3D_sm2ak")
+top_radius = 0.0
+bottom_radius = 2.48
+height = 4.97
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bpd0y"]
+radius = 0.26231
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_oeapc"]
+viewport_path = NodePath("World/Player/SubViewport")
+
+[sub_resource type="Animation" id="Animation_feedf"]
+resource_name = "BattleCamTransition"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.523599, 0, 0), Vector3(-0.959931, 0, 0), Vector3(-1.01229, 0, 0), Vector3(-0.959931, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D/Camera3D:fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [75.0, 92.2, 75.0]
+}
+
+[sub_resource type="Animation" id="Animation_hc4gp"]
+resource_name = "RunDown"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_m63pq"]
+resource_name = "RunSide"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [7, 8, 9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_28wce"]
+resource_name = "RunUp"
+length = 0.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [19, 20, 21, 22, 23, 24, 25]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i4aib"]
+_data = {
+"BattleCamTransition": SubResource("Animation_feedf"),
+"RunDown": SubResource("Animation_hc4gp"),
+"RunSide": SubResource("Animation_m63pq"),
+"RunUp": SubResource("Animation_28wce")
+}
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ja2ks"]
+top_radius = 0.3
+bottom_radius = 0.345
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpogj"]
+transparency = 1
+albedo_color = Color(0.0627451, 0.0627451, 0.0627451, 0.47451)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lswpo"]
+radius = 7.032
+height = 10.862
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n22m6"]
+transparency = 1
+shading_mode = 0
+disable_fog = true
+albedo_color = Color(0.815686, 0.560784, 0, 0.356863)
+
+[node name="Core" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o3iox")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.466385, -0.751644, 0.466386, 0.51752, 0.659442, 0.545262, -0.717397, -0.0129383, 0.696545, 0, 0, 0)
+shadow_enabled = true
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Stage" type="Node3D" parent="World"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.75, -0.5, -0.5)
+use_collision = true
+size = Vector3(36, 1, 8)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.35668, -1.48023, -5)
+use_collision = true
+size = Vector3(19, 4, 1)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.8567, -1.48023, -44)
+use_collision = true
+size = Vector3(6, 4, 1)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8567, -1.48023, -44)
+use_collision = true
+size = Vector3(6, 4, 1)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4889, -1.48023, -24.5)
+use_collision = true
+size = Vector3(1.26453, 4, 40)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.14332, -1.48023, -1)
+use_collision = true
+size = Vector3(2, 4, 9)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.8567, -1.48023, -20.5006)
+use_collision = true
+size = Vector3(2, 4, 48.0012)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8567, -1.48023, 3.5005)
+use_collision = true
+size = Vector3(38, 4, 0.001)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4228, -0.5, -23.7944)
+use_collision = true
+size = Vector3(16.6544, 1, 39)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="World/Stage"]
+transform = Transform3D(1, 0, 0, 0, -0.000436351, 1, 0, -1, -0.000436351, 24.0783, 4, -0.32617)
+shadow_enabled = true
+spot_angle = 30.93
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Stage/SpotLight3D"]
+transform = Transform3D(1, 0, 0, 0, -4.3714e-08, -1, 0, 1, -4.3714e-08, 0, 0.000872701, -2)
+mesh = SubResource("CylinderMesh_fpy2r")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World/Stage/SpotLight3D"]
+transform = Transform3D(1, 0, 0, 0, -4.3714e-08, -1, 0, 1, -4.3714e-08, 0, 0.000872701, -2)
+mesh = SubResource("CylinderMesh_fpy2r")
+
+[node name="Player" type="CharacterBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_d55rm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Player"]
+shape = SubResource("CapsuleShape3D_bpd0y")
+
+[node name="SubViewport" type="SubViewport" parent="World/Player"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+
+[node name="OnionSprite" parent="World/Player/SubViewport" instance=ExtResource("2_kjar6")]
+position = Vector2(256, 512)
+
+[node name="Sprite3D" type="Sprite3D" parent="World/Player"]
+transform = Transform3D(0.815, 0, 0, 0, 0.641396, 0.502828, 0, -0.502828, 0.641396, 0, 0.826416, -0.934491)
+shaded = true
+alpha_cut = 2
+texture = SubResource("ViewportTexture_oeapc")
+
+[node name="Camera3D" type="Camera3D" parent="World/Player/Sprite3D"]
+transform = Transform3D(1.22699, 0, 0, 0, 1.22699, 0, 0, 0, 1.22699, 0, -1.733, 9.44484)
+
+[node name="Npc" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1.41646, -23)
+script = ExtResource("3_0cjtn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Npc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.460497, 0.506725)
+shape = SubResource("CapsuleShape3D_bpd0y")
+
+[node name="Sprite3D" type="Sprite3D" parent="World/Npc"]
+transform = Transform3D(3, 0, 0, 0, 2.59808, 1.5, 0, -1.5, 2.59808, 0, -0.175, 0)
+texture = ExtResource("3_dbh3n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Npc"]
+libraries = {
+"": SubResource("AnimationLibrary_i4aib")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Npc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.40337, 0.622818)
+mesh = SubResource("CylinderMesh_ja2ks")
+surface_material_override/0 = SubResource("StandardMaterial3D_bpogj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(2.21112, 0, 0, 0, 2.97645, 0, 0, 0, 1, 55, 4, -268)
+mesh = SubResource("SphereMesh_lswpo")
+surface_material_override/0 = SubResource("StandardMaterial3D_n22m6")
+
+[editable path="World/Player/SubViewport/OnionSprite"]

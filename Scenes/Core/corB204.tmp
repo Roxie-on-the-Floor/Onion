@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://cla3c5klgrbto"]
+
+[ext_resource type="Script" path="res://Scenes/Core/world.gd" id="1_cj84i"]
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_d55rm"]
+[ext_resource type="PackedScene" uid="uid://ikhdvx3ksjb7" path="res://Scenes/Player/onion_sprite.tscn" id="2_kjar6"]
+[ext_resource type="PackedScene" uid="uid://dhahaya1j4ogg" path="res://Scenes/Components/interaction_component.tscn" id="3_wnjnk"]
+[ext_resource type="PackedScene" uid="uid://0oxv5grj8w26" path="res://Scenes/Stages/AA/proto_stage_1tscn.tscn" id="4_p14pn"]
+[ext_resource type="AudioStream" uid="uid://cjhbsbuf1cby5" path="res://Assets/Audio/683262__migfus20__relaxing-music.mp3" id="6_oflx3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ftwdo"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_oeapc"]
+viewport_path = NodePath("World/Player/SubViewport")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pc5nu"]
+radius = 1.41461
+
+[node name="Core" type="Node"]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_oflx3")
+volume_db = -4.16
+autoplay = true
+
+[node name="World" type="Node3D" parent="."]
+script = ExtResource("1_cj84i")
+
+[node name="Stage" parent="World" instance=ExtResource("4_p14pn")]
+
+[node name="Player" type="CharacterBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.5, -20)
+script = ExtResource("1_d55rm")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175704, -0.412739)
+shape = SubResource("CylinderShape3D_ftwdo")
+
+[node name="SubViewport" type="SubViewport" parent="World/Player"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+
+[node name="OnionSprite" parent="World/Player/SubViewport" instance=ExtResource("2_kjar6")]
+position = Vector2(256, 512)
+
+[node name="LowerLegLeft" parent="World/Player/SubViewport/OnionSprite/Skeleton2D/Root/UpperLegLeft" index="0"]
+scale = Vector2(0.999999, 0.999999)
+
+[node name="Sprite3D" type="Sprite3D" parent="World/Player"]
+transform = Transform3D(0.8, 0, 0, 0, 0.630409, 0.492529, 0, -0.492529, 0.630409, 0, 1.09, -1)
+shaded = true
+double_sided = false
+alpha_cut = 2
+texture = SubResource("ViewportTexture_oeapc")
+
+[node name="Camera3D" type="Camera3D" parent="World/Player/Sprite3D"]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -1.18633, 10.6371)
+near = 2.3
+
+[node name="InteractionComponent" parent="World/Player" instance=ExtResource("3_wnjnk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Player/InteractionComponent"]
+shape = SubResource("SphereShape3D_pc5nu")
+
+[editable path="World/Player/SubViewport/OnionSprite"]
