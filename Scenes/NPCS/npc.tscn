@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpn4fj6meys4s"]
+[gd_scene load_steps=5 format=3 uid="uid://dpn4fj6meys4s"]
 
-[ext_resource type="Script" path="res://Scenes/Core/dialog_npc.gd" id="1_stlm1"]
-[ext_resource type="PackedScene" uid="uid://cu7wjritrmjtd" path="res://Scenes/Components/interact_component.tscn" id="2_5exjj"]
+[ext_resource type="Script" path="res://Scenes/Core/dialog_npc.gd" id="1_tl5g7"]
+[ext_resource type="Script" path="res://Scenes/NPCS/interactions_manager.gd" id="2_4yayi"]
+[ext_resource type="PackedScene" uid="uid://cu7wjritrmjtd" path="res://Scenes/Components/interact_component.tscn" id="2_frlsa"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ftwdo"]
 
-[node name="DialogNpc" type="StaticBody3D" node_paths=PackedStringArray("mouth_sprite")]
+[node name="Npc" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.346, 2.32119, -21.6881)
-script = ExtResource("1_stlm1")
-mouth_sprite = NodePath("")
+script = ExtResource("1_tl5g7")
 pitch = 3
 metadata/_edit_group_ = true
 
-[node name="InteractComponent" parent="." instance=ExtResource("2_5exjj")]
+[node name="InteractionsManager" type="Node" parent="."]
+script = ExtResource("2_4yayi")
+
+[node name="InteractComponent" parent="." instance=ExtResource("2_frlsa")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.824296, -1.28818)
