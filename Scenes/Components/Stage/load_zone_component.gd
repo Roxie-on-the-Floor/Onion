@@ -17,4 +17,5 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body):
 	if body.name == "Player":
-		world.transition_to(transition_to, access_name)
+		if transition_to && access_name:
+			world.transition_to(transition_to, access_name)

@@ -526,9 +526,9 @@ tracks/14/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f6y02"]
 _data = {
-"Idle": SubResource("Animation_lpgj3"),
-"RESET": SubResource("Animation_rv12p"),
-"Run": SubResource("Animation_a7pc0")
+&"Idle": SubResource("Animation_lpgj3"),
+&"RESET": SubResource("Animation_rv12p"),
+&"Run": SubResource("Animation_a7pc0")
 }
 
 [node name="OnionFrontSprite" type="Node2D"]
@@ -661,6 +661,6 @@ rest = Transform2D(1, 0, 0, 1, -1, -33)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_f6y02")
+&"": SubResource("AnimationLibrary_f6y02")
 }
 playback_default_blend_time = 0.3

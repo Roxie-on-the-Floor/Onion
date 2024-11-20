@@ -1,15 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://crmr0624qgqwc"]
+[gd_scene load_steps=7 format=3 uid="uid://crmr0624qgqwc"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/stage.gd" id="1_7h3vs"]
-[ext_resource type="Script" path="res://Resources/stage_flags.gd" id="2_la5ir"]
-[ext_resource type="PackedScene" uid="uid://dpn4fj6meys4s" path="res://Scenes/NPCS/npc.tscn" id="3_7i0nu"]
+[ext_resource type="Script" path="res://Resources/stage_flags.gd" id="2_4baod"]
 
-[sub_resource type="Resource" id="Resource_8qscc"]
-script = ExtResource("2_la5ir")
-stage_flag_dict = {
-"SamiDialog1": false,
-"SamiDialog2": false
-}
+[sub_resource type="Resource" id="Resource_hii02"]
+script = ExtResource("2_4baod")
+stage_flag_dict = Dictionary[String, bool]({})
+metadata/_custom_type_script = ExtResource("2_4baod")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d6n6j"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -37,7 +34,7 @@ fog_density = 1.0
 
 [node name="Stage" type="Node3D"]
 script = ExtResource("1_7h3vs")
-stage_flags_resource = SubResource("Resource_8qscc")
+stage_flags_resource = SubResource("Resource_hii02")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8inx5")
@@ -45,8 +42,6 @@ environment = SubResource("Environment_8inx5")
 [node name="Props" type="Node3D" parent="."]
 
 [node name="Npcs" type="Node3D" parent="."]
-
-[node name="DialogNpc" parent="Npcs" instance=ExtResource("3_7i0nu")]
 
 [node name="Enviornment" type="Node3D" parent="."]
 

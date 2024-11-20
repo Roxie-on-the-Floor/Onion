@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpn4fj6meys4s"]
+[gd_scene load_steps=6 format=3 uid="uid://dpn4fj6meys4s"]
 
-[ext_resource type="Script" path="res://Scenes/Core/dialog_npc.gd" id="1_tl5g7"]
-[ext_resource type="Script" path="res://Scenes/NPCS/interactions_manager.gd" id="2_4yayi"]
+[ext_resource type="Script" path="res://Scenes/Core/npc.gd" id="1_tl5g7"]
+[ext_resource type="Script" path="res://Scenes/Components/npc/InteractionsManager/interactions_manager.gd" id="2_4yayi"]
 [ext_resource type="PackedScene" uid="uid://cu7wjritrmjtd" path="res://Scenes/Components/interact_component.tscn" id="2_frlsa"]
+[ext_resource type="Script" path="res://Scenes/Components/npc/InteractionsManager/Interactions/interaction.gd" id="3_2xcv1"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ftwdo"]
 
@@ -14,6 +15,11 @@ metadata/_edit_group_ = true
 
 [node name="InteractionsManager" type="Node" parent="."]
 script = ExtResource("2_4yayi")
+
+[node name="SamiDialog1" type="Node" parent="InteractionsManager"]
+script = ExtResource("3_2xcv1")
+dialog_keys = Array[String](["SAMI_INTRO_1", "SAMI_INTRO_2", "SAMI_INTRO_3", "SAMI_INTRO_4", "SAMI_INTRO_5", "SAMI_INTRO_6"])
+flag_on_completion = "SamiDialogComplete1"
 
 [node name="InteractComponent" parent="." instance=ExtResource("2_frlsa")]
 
